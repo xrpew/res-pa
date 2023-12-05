@@ -26,7 +26,7 @@ const LoginContent: React.FC<LoginContentProps> = ({ handlePassingDataOnIndex })
     const [frecuent, setFrecuent] = useState(false)
     const [birthdate, setBirthdate] = useState(false)
 
-    const hanldleAddEvent = async (e) => {
+    const hanldleAddEvent = async (e: any) => {
         e.preventDefault()
         let values:Documento = { 
             mesa: mesa, 
@@ -134,7 +134,7 @@ const LoginContent: React.FC<LoginContentProps> = ({ handlePassingDataOnIndex })
                             Cumpleanios
                         </label>
                     </div>
-                    <button className="btn btn-primary w-100 py-2" onClick={hanldleAddEvent} disabled={!isAllWrite} >Sign in</button>
+                    <button className="btn btn-primary w-100 py-2" onClick={(e)=>hanldleAddEvent(e)} disabled={!isAllWrite} >Sign in</button>
                 </form>
             </main>
             <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
