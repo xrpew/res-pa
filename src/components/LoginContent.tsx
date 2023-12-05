@@ -48,11 +48,6 @@ const LoginContent: React.FC<LoginContentProps> = ({ handlePassingDataOnIndex })
         setBirthdate(false)
     }   
 
-    const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const nuevoValor = Number(e.target.value);
-        setCantidad(nuevoValor);
-    };
-
     useEffect(() => {
         if (name !== '' && mesa !== '') {
             if((name.split(' ')).length > 1){
@@ -86,17 +81,19 @@ const LoginContent: React.FC<LoginContentProps> = ({ handlePassingDataOnIndex })
                             required />
                         <label htmlFor="floatingInput">Nombre Completo</label>
                     </div>
-                    <div className="form m-2">
-                        <label className='m-4' htmlFor="rangeInput">Numero de comensales: {cantidad}</label>
+                    <div className="form-floating m-2">
                         <input
-                            type="range"
-                            className="form-range"
-                            id="rangeInput"
+                            type="number"
+                            className="form-control"
+                            id="floatingNumberOfPeoples"
+                            placeholder="numero de comensales"
                             value={cantidad}
-                            onChange={handleRangeChange}
-                            min={1}
+                            onChange={e => setCantidad(parseInt(e.target.value))}
                             max={20}
+                            min={1}
+                            required
                         />
+                        <label htmlFor="floatingNumberOfTable">Numero de comensales</label>
                     </div>
                     <div className="form-floating m-2">
                         <input
@@ -134,7 +131,7 @@ const LoginContent: React.FC<LoginContentProps> = ({ handlePassingDataOnIndex })
                             Cumpleanios
                         </label>
                     </div>
-                    <button className="btn btn-primary w-100 py-2" onClick={(e)=>hanldleAddEvent(e)} disabled={!isAllWrite} >Sign in</button>
+                    <button className="btn btn-primary w-100 py-2" onClick={(e)=>hanldleAddEvent(e)} disabled={!isAllWrite} >Agregar</button>
                 </form>
             </main>
             <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
