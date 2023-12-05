@@ -20,7 +20,7 @@ const LoginContent: React.FC<LoginContentProps> = ({ handlePassingDataOnIndex })
 
     const [fechaYHora, setFechaYHora] = useState((new Date()).toISOString().slice(0, 16));
     const [name, setName] = useState('')
-    const [cantidad, setCantidad] = useState<Number>(2)
+    const [cantidad, setCantidad] = useState(2)
     const [isAllWrite, setIsAllWrite] = useState<boolean>(false)
     const [mesa, setMesa] = useState('')
     const [frecuent, setFrecuent] = useState(false)
