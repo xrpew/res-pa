@@ -1,5 +1,6 @@
 import './App.css';
 import { collection, getDocs, DocumentData, QueryDocumentSnapshot, doc, addDoc, updateDoc } from 'firebase/firestore';
+// @ts-ignore
 import { db } from './firebase/config.js';
 import { useEffect, useState } from 'react';
 import LoginContent from './components/LoginContent.js';
@@ -56,6 +57,7 @@ function App() {
         console.log(newArray)
       });
       console.log(newArray)
+      // @ts-ignore
       const nuevoArregloOrdenado = [...newArray].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
       console.log(nuevoArregloOrdenado)
