@@ -28,22 +28,25 @@ const LoginContent: React.FC<LoginContentProps> = ({ handlePassingDataOnIndex })
 
     const hanldleAddEvent = async (e) => {
         e.preventDefault()
-        let values = { 
+        let values:Documento = { 
             mesa: mesa, 
             name: name, 
             cantidad: cantidad, 
-            fecha: fechaYHora, 
+            fechaYHora: fechaYHora, 
             show: true, 
             arrived:false,
             frecuent: frecuent,
             birthdate: birthdate,
         }
+        // ignore
         handlePassingDataOnIndex(values)
         setName('')
         setCantidad(2)
         setIsAllWrite(false)
         setMesa('')
-    }
+        setFrecuent(false)
+        setBirthdate(false)
+    }   
 
     const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const nuevoValor = Number(e.target.value);
