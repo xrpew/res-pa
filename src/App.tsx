@@ -1,5 +1,5 @@
 import './App.css';
-import { collection, getDocs, DocumentData, QueryDocumentSnapshot, deleteDoc, doc, addDoc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, DocumentData, QueryDocumentSnapshot, doc, addDoc, updateDoc } from 'firebase/firestore';
 import { db } from './firebase/config.js';
 import { useEffect, useState } from 'react';
 import LoginContent from './components/LoginContent.js';
