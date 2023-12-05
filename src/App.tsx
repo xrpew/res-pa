@@ -23,7 +23,7 @@ function App() {
 
 
   const handleCreateDocument = async (values: Documento) => {
-    console.log(values)
+    // console.log(values)
     try {
       const refPedido = collection(db, 'reservas');
       await addDoc(refPedido, values);
@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     getTodosLosDocumentos();
-    console.log('refresh');
+    // console.log('refresh');
   }, []);
 
   async function getTodosLosDocumentos() {
@@ -48,19 +48,19 @@ function App() {
       let newArray: DocumentData[] = [];
       snapshot.forEach((docs: QueryDocumentSnapshot<DocumentData>) => {
         let value = docs.data()
-        console.log(value)
+        // console.log(value)
         value['id'] = docs.id
         if (value['show']) {
           newArray = [...newArray, value];
         }
 
-        console.log(newArray)
+        // console.log(newArray)
       });
-      console.log(newArray)
+      // console.log(newArray)
       // @ts-ignore
       const nuevoArregloOrdenado = [...newArray].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
-      console.log(nuevoArregloOrdenado)
+      // console.log(nuevoArregloOrdenado)
       setAllDocs(nuevoArregloOrdenado);
     } catch (error) {
       console.error('Error al obtener documentos:', error);
@@ -70,7 +70,7 @@ function App() {
 
 
   const deleteDocument = async (id: string, arrived: boolean) => {
-    console.log(id);
+    // console.log(id);
     try {
       await updateDoc(doc(db, 'reservas', id), {
         show: false,

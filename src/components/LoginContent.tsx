@@ -58,7 +58,6 @@ const LoginContent: React.FC<LoginContentProps> = ({ handlePassingDataOnIndex })
         } else {
             setIsAllWrite(false)
         }
-        console.log((name.split(' ')).length)
     }, [name, mesa])
 
     return (
