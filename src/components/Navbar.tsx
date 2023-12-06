@@ -1,4 +1,3 @@
-import AddIcon from '../assets/AddIcon'
 import LoginContent from './LoginContent'
 
 // @ts-ignore
