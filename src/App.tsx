@@ -3,7 +3,10 @@ import { collection, getDocs, DocumentData, QueryDocumentSnapshot, doc, addDoc, 
 // @ts-ignore
 import { db } from './firebase/config.js';
 import { useEffect, useState } from 'react';
-import LoginContent from './components/LoginContent.js';
+import { onAuthStateChanged, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import ListCard from './components/ListCard.js';
+import AcordeonContent from './components/AcordeonContent.js';
+import Navbar from './components/Navbar.js';
 
 
 interface Documento {
@@ -20,7 +23,7 @@ interface Documento {
 
 function App() {
   const [allDocs, setAllDocs] = useState<DocumentData[]>([]);
-
+  const [user, setUser] = useState({})
 
   const handleCreateDocument = async (values: Documento) => {
     // console.log(values)
@@ -38,8 +41,12 @@ function App() {
 
 
   useEffect(() => {
+    onAuthStateChanged(auth, currentUser => {
+      // @ts-ignore
+      setUser(currentUser)
+    })
     getTodosLosDocumentos();
-    // console.log('refresh');
+    console.log(user);
   }, []);
 
   async function getTodosLosDocumentos() {
@@ -53,15 +60,12 @@ function App() {
         if (value['show']) {
           newArray = [...newArray, value];
         }
-
-        // console.log(newArray)
       });
-      // console.log(newArray)
       // @ts-ignore
-      const nuevoArregloOrdenado = [...newArray].sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+      const nuevoArregloOrdenado = [...newArray].sort((a, b) => new Date(a.fechaYHora) - new Date(b.fechaYHora));
 
-      // console.log(nuevoArregloOrdenado)
       setAllDocs(nuevoArregloOrdenado);
+      console.log(nuevoArregloOrdenado)
     } catch (error) {
       console.error('Error al obtener documentos:', error);
     }
@@ -70,51 +74,42 @@ function App() {
 
 
   const deleteDocument = async (id: string, arrived: boolean) => {
-    // console.log(id);
     try {
       await updateDoc(doc(db, 'reservas', id), {
         show: false,
         arrived,
       })
-      getTodosLosDocumentos(); // Refresh the list after deletion
+      getTodosLosDocumentos();
     } catch (error) {
       console.error('Error al eliminar documento:', error);
     }
   }
+  const auth = getAuth()
+
+  // signInWithEmailAndPassword(auth, 'admin@res-pas.cl', '123456')
+  //   .then((userCredential) => {
+  //     const user = userCredential.user;
+  //     console.log(user)
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     console.log(errorCode, errorMessage)
+  //   });
+
+
+  // const logOut = () => {
+  //   console.log('auth')
+  //   // signOut(auth)
+  // }
+
+
   return (
     <>
-      <div className="accordion f" id="accordionPanelsStayOpenExample">
-        <div className="accordion-item">
-          <h2 className="accordion-header">
-            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-              Agregar una reserva
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
-            <div className="accordion-body">
-              <LoginContent handlePassingDataOnIndex={handleCreateDocument} />
-            </div>
-          </div>
-        </div>
-      </div>
-      {allDocs.length == 0 && <p className='p-4'>Aun no tienes reservas agendadas, crea la primera desde la parte superior ☝☝</p>  }
-      {allDocs.map((elemento) => (
-        <div className="card" key={elemento.id}>
-          <h5 className="card-header">
-            {elemento.birthdate && `🎂`} {elemento.frecuent && `🚲`} {elemento.name} ({elemento.cantidad}) 
-            </h5>
-          <div className="card-body">
-            <h5 className="card-title">
-              {new Date(elemento.fechaYHora).toLocaleString()}
-              </h5>
-            <p className="card-text">
-            Mesa: {elemento.mesa}
-              </p>
-            <p onClick={() => { deleteDocument(elemento.id, true) }} className="btn btn-primary">LLEGÓ</p>
-            <p onClick={() => { deleteDocument(elemento.id, false) }} className="btn btn-danger">NO VINO</p>
-          </div>
-        </div>
-      ))}
+      <Navbar handleCreateDocument={handleCreateDocument}/>
+      {/* <AcordeonContent handleCreateDocument={handleCreateDocument}/> */}
+
+      <ListCard allDocs={allDocs} deleteDocument={deleteDocument}/>
     </>
   );
 }
