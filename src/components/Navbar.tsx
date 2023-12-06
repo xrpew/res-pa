@@ -1,5 +1,6 @@
 import LoginContent from './LoginContent'
 
+// @ts-ignore
 const Navbar = ({handleCreateDocument}) => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">

@@ -4,6 +4,7 @@ const ListCard = ({allDocs, deleteDocument}) => {
   return (
     <>
     {allDocs.length == 0 && <p className='p-4'>Aun no tienes reservas agendadas, crea la primera desde la parte superior ☝☝</p>}
+    {/* @ts-ignore */}
       {allDocs.map((elemento) => (
         <div className="card" key={elemento.id}>
           <h5 className="card-header">

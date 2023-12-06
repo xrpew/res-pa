@@ -3,9 +3,9 @@ import { collection, getDocs, DocumentData, QueryDocumentSnapshot, doc, addDoc, 
 // @ts-ignore
 import { db } from './firebase/config.js';
 import { useEffect, useState } from 'react';
+// @ts-ignore
 import { onAuthStateChanged, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import ListCard from './components/ListCard.js';
-import AcordeonContent from './components/AcordeonContent.js';
 import Navbar from './components/Navbar.js';
 
 
